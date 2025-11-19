@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuSchool - Documents PDF Scolaires & Concours</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+        }
+
+        .category-card h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .category-card p {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            background: #20ba5a;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        .features {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .feature p {
+            color: #666;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .categories, .products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                📚 DocuSchool
+            </div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#categories">Catégories</a></li>
+                <li><a href="#documents">Documents</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero" id="accueil">
+        <h1>📖 Votre Réussite Commence Ici</h1>
+        <p>Documents PDF de qualité pour toutes les disciplines et préparation aux concours</p>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title" id="categories">Nos Catégories</h2>
+        <div class="categories">
+            <div class="category-card">
+                <div class="category-icon">📐</div>
+                <h3>Mathématiques</h3>
+                <p>Cours, exercices et corrigés de tous niveaux</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">🔬</div>
+                <h3>Sciences</h3>
+                <p>Physique, Chimie, SVT - Ressources complètes</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">📚</div>
+                <h3>Lettres</h3>
+                <p>Français, Philosophie, Histoire-Géo</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">💼</div>
+                <h3>Concours</h3>
+                <p>Préparation aux concours administratifs</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">🎓</div>
+                <h3>Examens</h3>
+                <p>BAC, BEPC, CAP - Sujets et corrigés</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">🌍</div>
+                <h3>Langues</h3>
+                <p>Anglais, Espagnol, Allemand</p>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="documents">Documents Populaires</h2>
+        <div class="products">
+            <div class="product-card">
+                <div class="product-image">📊</div>
+                <div class="product-info">
+                    <h3>Pack Mathématiques BAC</h3>
+                    <p>Cours complets + 50 exercices corrigés</p>
+                    <div class="product-price">2500 FCFA</div>
+                    <button class="whatsapp-btn" onclick="commanderWhatsApp('Pack Mathématiques BAC', '2500 FCFA')">
+                        💬 Commander sur WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">🔬</div>
+                <div class="product-info">
+                    <h3>Physique-Chimie Terminale</h3>
+                    <p>Fiches de révision + TP corrigés</p>
+                    <div class="product-price">2000 FCFA</div>
+                    <button class="whatsapp-btn" onclick="commanderWhatsApp('Physique-Chimie Terminale', '2000 FCFA')">
+                        💬 Commander sur WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">📖</div>
+                <div class="product-info">
+                    <h3>Prépa Concours Fonction Publique</h3>
+                    <p>Annales + Méthodologie complète</p>
+                    <div class="product-price">3500 FCFA</div>
+                    <button class="whatsapp-btn" onclick="commanderWhatsApp('Prépa Concours Fonction Publique', '3500 FCFA')">
+                        💬 Commander sur WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">✍️</div>
+                <div class="product-info">
+                    <h3>Français BEPC</h3>
+                    <p>Grammaire, Conjugaison, Rédaction</p>
+                    <div class="product-price">1500 FCFA</div>
+                    <button class="whatsapp-btn" onclick="commanderWhatsApp('Français BEPC', '1500 FCFA')">
+                        💬 Commander sur WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">🌍</div>
+                <div class="product-info">
+                    <h3>Anglais - Tous Niveaux</h3>
+                    <p>Grammaire + Vocabulaire thématique</p>
+                    <div class="product-price">2000 FCFA</div>
+                    <button class="whatsapp-btn" onclick="commanderWhatsApp('Anglais - Tous Niveaux', '2000 FCFA')">
+                        💬 Commander sur WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">📜</div>
+                <div class="product-info">
+                    <h3>Pack Examens Complet</h3>
+                    <p>Toutes matières BAC S, L, ES</p>
+                    <div class="product-price">5000 FCFA</div>
+                    <button class="whatsapp-btn" onclick="commanderWhatsApp('Pack Examens Complet', '5000 FCFA')">
+                        💬 Commander sur WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Livraison Rapide</h3>
+                <p>Recevez vos documents PDF instantanément après paiement</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✅</div>
+                <h3>Qualité Garantie</h3>
+                <p>Contenus vérifiés et conformes aux programmes officiels</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💰</div>
+                <h3>Prix Abordables</h3>
+                <p>Des tarifs adaptés à tous les budgets</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>Support 24/7</h3>
+                <p>Notre équipe est disponible pour vous aider</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="whatsapp-float" onclick="ouvrirWhatsApp()">
+        💬
+    </div>
+
+    <footer id="contact">
+        <p>📞 Contact WhatsApp : +225 07 05 60 72 26</p>
+        <p style="margin-top: 1rem;">© 2025 DocuSchool - Tous droits réservés</p>
+    </footer>
+
+    <script>
+        function commanderWhatsApp(produit, prix) {
+            const numero = '2250705607226';
+            const message = encodeURIComponent(
+                `Bonjour! Je souhaite commander:\n\n📚 ${produit}\n💰 Prix: ${prix}\n\nMerci!`
+            );
+            window.open(`https://wa.me/${numero}?text=${message}`, '_blank');
+        }
+
+        function ouvrirWhatsApp() {
+            const numero = '2250705607226';
+            const message = encodeURIComponent(
+                'Bonjour! Je souhaite en savoir plus sur vos documents PDF.'
+            );
+            window.open(`https://wa.me/${numero}?text=${message}`, '_blank');
+        }
+
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.category-card, .product-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s, transform 0.5s';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
